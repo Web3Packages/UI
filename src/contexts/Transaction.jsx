@@ -30,6 +30,8 @@ export function TransactionsProvider({ children }) {
                 // example: return params. add list to show
                 list.push({
                     sn: transactor[0].toString(),
+                    startTime: parseInt(transactor[1].toString()) * 1000,
+                    endTime: parseInt(transactor[2].toString()) * 1000,
                     longitude: parseFloat(transactor[3].toString()) / 1000000,
                     latitude: parseFloat(transactor[4].toString()) / 1000000,
                     deviation: parseFloat(transactor[5].toString()) / 1000000,
@@ -43,11 +45,13 @@ export function TransactionsProvider({ children }) {
         } catch (error) {
             console.log(error)
         }
+        setIsLoading(false)
     }
 
     async function checkIfWalletIsConnect() {
         try {
-            if (!ethereum) return alert("Please install MetaMask.")
+            // if (!ethereum) return alert("Please install MetaMask.")
+            if (!ethereum) return
 
             const accounts = await ethereum.request({ method: "eth_accounts" })
 
@@ -60,11 +64,13 @@ export function TransactionsProvider({ children }) {
         } catch (error) {
             console.log(error)
         }
+        setIsLoading(false)
     }
 
     async function connectWallet() {
         try {
-            if (!ethereum) return alert("Please install MetaMask.")
+            // if (!ethereum) return alert("Please install MetaMask.")
+            if (!ethereum) return
 
             const accounts = await ethereum.request({ method: "eth_requestAccounts" })
             console.log(accounts)

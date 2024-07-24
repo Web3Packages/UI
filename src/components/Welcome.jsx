@@ -5,7 +5,7 @@ function Welcome() {
     const { isLoading, connectWallet, transactions } = useContext(TransactionContext)
 
     return (
-        <div className="text-center my-auto h-full">
+        <div className="h-full flex justify-center items-center flex-col">
             <hgroup>
                 <h1>Welcome to Web3-Packages Demo</h1>
             </hgroup>
