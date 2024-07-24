@@ -21,22 +21,7 @@ function Welcome() {
                     )
             }
 
-            <ul>
-                {transactions.map((item, idx) => {
-                    return (
-                        <li key={idx}>
-                            <div>{item.sn} </div>
-                            <div>{item.longitude} </div>
-                            <div>{item.latitude} </div>
-                            <div>{item.deviation} </div>
-                            <div>{item.owner} </div>
-                            <div>{item.description} </div>
-                            <div>{item.city} </div>
-                            <div>{item.checked} </div>
-                        </li>
-                    )
-                })}
-            </ul>
+            transaction is {transactions.toString()}
         </div>
     )
 }

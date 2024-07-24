@@ -22,26 +22,10 @@ export function TransactionsProvider({ children }) {
         const abi = new AbiCoder()
         try {
             const contract = await createEthereumContract()
-            const transactions = await contract.getAllCheckinPoints() // solidity methods
-            const list = []
-            for (const transaction of transactions) {
-                //                                          solidity params type
-                const transactor = abi.decode(["uint32", "uint64", "uint64", "uint32", "uint32", "uint32", "address", "string", "string", "bool"], transaction)
-                // example: return params. add list to show
-                list.push({
-                    sn: transactor[0].toString(),
-                    startTime: parseInt(transactor[1].toString()) * 1000,
-                    endTime: parseInt(transactor[2].toString()) * 1000,
-                    longitude: parseFloat(transactor[3].toString()) / 1000000,
-                    latitude: parseFloat(transactor[4].toString()) / 1000000,
-                    deviation: parseFloat(transactor[5].toString()) / 1000000,
-                    owner: transactor[6],
-                    description: transactor[7],
-                    city: transactor[8],
-                    checked: transactor[9],
-                })
-            }
-            setTransactions(list)
+            const params = [1759, "0x", 300000n, 31172614907n]
+            const transactions = await contract.estimateCost(...params) // solidity methods
+
+            setTransactions(transactions)
         } catch (error) {
             console.log(error)
         }
