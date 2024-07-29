@@ -1,26 +1,30 @@
-import { useContext } from 'react';
-import { TransactionContext } from "@/contexts/Transaction.jsx";
+import { useContext } from "react"
+import { TransactionContext } from "@/contexts/Transaction.jsx"
 
-const Tooltip = ({ children, text }) => (
-    <div className="relative group">
-        {children}
-        <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 w-max max-w-xs p-2 bg-black text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            {text}
+function Tooltip({ children, text }) {
+    return (
+        <div className="relative group">
+            {children}
+            <div
+                className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 w-max max-w-xs p-2 bg-black text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {text}
+            </div>
         </div>
-    </div>
-);
+    )
+}
 
-const Home = () => {
+function Home() {
     const handleButtonClick = (path) => {
-        window.open(path, '_blank');
-    };
+        window.open(path, "_blank")
+    }
 
-    const { isLoading, connectWallet, transactions } = useContext(TransactionContext);
+    const { isLoading, connectWallet, transactions } = useContext(TransactionContext)
 
-    const isDisabled = !transactions;
+    const isDisabled = !transactions
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-purple-500 to-blue-500">
+        <div
+            className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-purple-500 to-blue-500">
             <h1 className="text-white text-4xl font-bold mb-8">Welcome to Web3-Packages Demo</h1>
             <div className="flex flex-col items-center space-y-6">
                 <button
@@ -42,8 +46,8 @@ const Home = () => {
                 <div className="flex space-x-4">
                     <Tooltip text="Please connect your wallet first.">
                         <button
-                            onClick={() => handleButtonClick('/edit')}
-                            className={`w-40 py-2 px-4 rounded-full transition duration-150 ease-in-out ${isDisabled ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-purple-500 text-white hover:bg-purple-600 active:bg-purple-700'}`}
+                            onClick={() => handleButtonClick("/edit")}
+                            className={`w-40 py-2 px-4 rounded-full transition duration-150 ease-in-out ${isDisabled ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-purple-500 text-white hover:bg-purple-600 active:bg-purple-700"}`}
                             disabled={isDisabled}
                         >
                             Edit
@@ -51,8 +55,8 @@ const Home = () => {
                     </Tooltip>
                     <Tooltip text="Please connect your wallet first.">
                         <button
-                            onClick={() => handleButtonClick('/check')}
-                            className={`w-40 py-2 px-4 rounded-full transition duration-150 ease-in-out ${isDisabled ? 'bg-gray-400 text-gray-600 cursor-not-allowed' : 'bg-purple-500 text-white hover:bg-purple-600 active:bg-purple-700'}`}
+                            onClick={() => handleButtonClick("/check")}
+                            className={`w-40 py-2 px-4 rounded-full transition duration-150 ease-in-out ${isDisabled ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-purple-500 text-white hover:bg-purple-600 active:bg-purple-700"}`}
                             disabled={isDisabled}
                         >
                             Check
@@ -61,7 +65,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Home;
+export default Home
