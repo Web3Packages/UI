@@ -65,7 +65,7 @@ export default function Header({ hasSearch }) {
         <header className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white text-2xl font-bold py-4 flex items-center justify-between px-4 h-20">
             <span>Welcome to Web3-Packages Demo</span>
             {hasSearch && <Search />}
-            <a href="https://github.com/Web3Packages/UI">
+            <a href="https://github.com/Web3Packages/UI" target="_blank">
                 <img src="https://github.githubassets.com/favicons/favicon.svg" alt="github" />
             </a>
         </header>
