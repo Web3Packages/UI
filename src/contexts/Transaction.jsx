@@ -59,7 +59,7 @@ export function TransactionsProvider({ children }) {
             console.log(accounts)
 
             setCurrentAccount(accounts[0])
-            location.reload()
+            // location.reload()
         } catch (error) {
             console.log(error)
 

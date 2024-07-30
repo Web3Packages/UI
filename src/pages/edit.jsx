@@ -4,11 +4,12 @@ import Coding from "@/layout/coding.jsx"
 import Main from "@/layout/main.jsx"
 
 function Edit() {
+    const fileRaw = "test code"
     return (
         <Main>
             <Header />
             <div className="flex flex-1 w-full h-[calc(100%-100px)]">
-                <Coding />
+                <Coding fileRaw={fileRaw} />
                 <Result />
             </div>
         </Main>
