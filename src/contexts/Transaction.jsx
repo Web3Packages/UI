@@ -25,7 +25,6 @@ export function TransactionsProvider({ children }) {
         try {
             const contract = await createEthereumContract()
             setContract(contract)
-
         } catch (error) {
             console.log(error)
         }
