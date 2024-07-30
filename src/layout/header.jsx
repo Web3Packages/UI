@@ -5,7 +5,6 @@ function Search() {
     const { contract } = useContractionStore()
     const { setCurrentFileFullName } = useCheckStore()
     const [keyword, setKeyword] = useState("uint8ArrayToByteStr")
-    const [selectedItem, setSelectedItem] = useState()
     const [list, setList] = useState([])
 
     const getFunctionListByKeyWord = async kewWord => {
