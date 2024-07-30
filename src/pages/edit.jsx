@@ -1,7 +1,4 @@
-import Header from "@/layout/header.jsx"
-import Result from "@/layout/result.jsx"
-import Coding from "@/layout/coding.jsx"
-import Main from "@/layout/main.jsx"
+import { Coding, Header, Main, Result } from "@/layout"
 
 function Edit() {
     return (
