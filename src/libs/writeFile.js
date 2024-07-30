@@ -1,6 +1,7 @@
-import { createEthereumContract } from "@/contexts/Transaction.jsx"
-import * as fs from "fs"
 import { ethers } from "ethers"
+import { useContractionStore } from "@/stores"
+
+const { contract } = useContractionStore()
 
 function bufferChunk(buffer, chunkSize) {
     let i = 0
@@ -14,9 +15,8 @@ function bufferChunk(buffer, chunkSize) {
     return result
 }
 
-const contract = createEthereumContract()
 
-async function writeFile(fileName, fileRaw) {
+export async function writeFile(fileName, fileRaw) {
     const hexName = "0x" + Buffer.from(`${fileName}.txt`, "utf8").toString("hex")  //
 
     const contentBuffer = new Buffer([fileRaw])

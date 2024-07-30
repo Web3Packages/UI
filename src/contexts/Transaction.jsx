@@ -1,6 +1,7 @@
 import { createContext } from "react"
 import { ethers, AbiCoder } from "ethers"
 import { contractABI, contractAddress } from "@/constants/contract.json"
+import { useContractionStore } from "@/stores"
 
 export const TransactionContext = createContext()
 
@@ -17,15 +18,14 @@ export function TransactionsProvider({ children }) {
     const [isLoading, setIsLoading] = useState(false)
     const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"))
     const [transactions, setTransactions] = useState([])
+    const { setContract } = useContractionStore()
 
     async function getTransactions() {
         const abi = new AbiCoder()
         try {
             const contract = await createEthereumContract()
-            const params = [1759, "0x", 300000n, 31172614907n]
-            const transactions = await contract.estimateCost(...params) // solidity methods
+            setContract(contract)
 
-            setTransactions(transactions)
         } catch (error) {
             console.log(error)
         }

@@ -24,6 +24,9 @@ export default function Header({ hasSearch }) {
                     </button>
                 </div>
             )}
+            <a href="https://github.com/Web3Packages/UI">
+                <img src="https://github.githubassets.com/favicons/favicon.svg" alt="github"/>
+            </a>
         </header>
     )
 }
