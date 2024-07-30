@@ -4,10 +4,9 @@ import Coding from "@/layout/coding.jsx"
 import Main from "@/layout/main.jsx"
 
 function Edit() {
-
     return (
         <Main>
-            <Header hasSearch />
+            <Header />
             <div className="flex flex-1 w-full h-[calc(100%-100px)]">
                 <Coding />
                 <Result />

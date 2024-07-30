@@ -1,10 +1,7 @@
 import CodeMirror from "@uiw/react-codemirror"
 import { javascript } from "@codemirror/lang-javascript"
-import { useSearchStore } from "@/stores"
 
 export default function Coding() {
-    const { fileRaw } = useSearchStore()
-
     return (
         <div className="flex-1 p-4 h-full text-gray-700">
             <CodeMirror value={fileRaw} className="h-full" height="100%" extensions={[javascript({ jsx: true })]} />
