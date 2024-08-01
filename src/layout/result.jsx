@@ -25,7 +25,7 @@ export default function Result(props) {
             </div>
 
             {/* Run Results Area */}
-            <div className="bg-white p-4 rounded-lg shadow-lg border border-gray-200 h-[300px] overflow-auto">
+            <div className="bg-white p-4 rounded-lg shadow-lg border border-gray-200 h-[300px]">
                 <div className="text-gray-800 text-lg font-semibold">运行结果</div>
                 <div className="mt-2 text-gray-600">{runResult}</div>
             </div>

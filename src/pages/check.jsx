@@ -1,54 +1,46 @@
 import CodeMirror from "@uiw/react-codemirror"
 import { javascript } from "@codemirror/lang-javascript"
 import { ethers } from "ethers"
-import { Result, Header, Main } from "@/layout"
-import { useCheckStore, useContractionStore } from "@/stores"
-import { getFunctionFileName, fakeConsole } from "@/utils"
+import Result from "@/layout/result.jsx"
+import Header from "@/layout/header.jsx"
+import Main from "@/layout/main.jsx"
+import { useCheckStore } from "@/stores"
+import { useContractionStore } from "../stores/contraction"
+import { getFunctionFileName } from "../utils"
 
 function Check() {
     const { currentFileFullName, fileContent, setFileContent, runCode, setRunCode } = useCheckStore()
     const { contract } = useContractionStore()
 
-    const [runResult, setRunResult] = useState([])
+    const [runResult, setRunResult] = useState()
     const getFunDetail = async fullName => {
         if (contract && fullName) {
             const fileName = getFunctionFileName(fullName)
             const fileContentBuffer = await contract.getFiles(fileName)
             const fileContentJson = ethers.toUtf8String(fileContentBuffer)
             const fileContentObj = JSON.parse(fileContentJson)
+
             const [funcName, version] = fullName.split("@")
             setFileContent(decodeURIComponent(fileContentObj[funcName]))
         }
     }
     const runTestCode = testCode => {
-        setRunResult([])
-        fakeConsole(
-            log => {
-                setRunResult(oldLog => [
-                    ...oldLog,
-                    <span>
-                        {log}
-                        <br />
-                    </span>,
-                ])
-            },
-            () => {
-                try {
-                    const functionBody = `
-                    ${fileContent || ""};
-                    ${testCode || ""}
-                `
-                    new Function(functionBody)()
-                } catch (e) {
-                    setRunResult(e.toString())
-                }
-            },
-        )
+        try {
+            const functionBody = `
+                ${fileContent || ""}
+                const res = eval(\`${testCode || ""}\`)
+                return res;
+            `
+            const execFun = new Function(functionBody)
+            const result = execFun()
+            setRunResult(result?.toString())
+        } catch (e) {
+            setRunResult(e.toString())
+        }
     }
     useEffect(() => {
         getFunDetail(currentFileFullName)
     }, [currentFileFullName, contract])
-
     return (
         <Main>
             <Header hasSearch />

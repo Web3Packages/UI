@@ -9,4 +9,3 @@ export function bytesToStr(bytes) {
 export function getFunctionFileName(functionName) {
     return ethers.toUtf8Bytes(`/${functionName}.txt`)
 }
-export * from './console'
