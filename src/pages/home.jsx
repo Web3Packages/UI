@@ -1,17 +1,7 @@
 import { useContext } from "react"
 import { TransactionContext } from "@/contexts/Transaction.jsx"
 import { useNavigate } from "react-router-dom"
-
-function Tooltip({ children, text }) {
-    return (
-        <div className="relative group">
-            {children}
-            <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 w-max max-w-xs p-2 bg-black text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {text}
-            </div>
-        </div>
-    )
-}
+import { Tooltip } from "@/components/Tooltip.jsx"
 
 function Home() {
     const navigate = useNavigate()
