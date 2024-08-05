@@ -1,11 +1,4 @@
-import Coding from "./coding"
-import Header from "./header"
-import Main from "./main"
-import Result from "./result"
-
-export {
-    Coding,
-    Header,
-    Main,
-    Result
-}
+export { default as Coding } from "./coding"
+export { default as Header } from "./header"
+export { default as Main} from "./main"
+export { default as Result } from "./result"
