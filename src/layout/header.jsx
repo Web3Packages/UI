@@ -1,5 +1,7 @@
-import { useContractionStore } from "../stores/contraction"
+import { useContractionStore } from "@/stores/index.js"
 import { useCheckStore } from "../stores/check"
+import { useNavigate } from "react-router-dom"
+import { Tooltip } from "@/components/Tooltip.jsx"
 
 function Search() {
     const { contract } = useContractionStore()
@@ -60,10 +62,20 @@ function Search() {
         </div>
     )
 }
+
 export default function Header({ hasSearch }) {
+    const navigate = useNavigate()
+
+    const handleButtonClick = path => {
+        navigate(path)
+    }
     return (
-        <header className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white text-2xl font-bold py-4 flex items-center justify-between px-4 h-20">
-            <span>Welcome to Web3-Packages Demo</span>
+        <header
+            className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white text-2xl font-bold py-4 flex items-center justify-between px-4 h-20">
+            <Tooltip text="back to home" position="top">
+                <span onClick={() => handleButtonClick("/")}
+                      className="cursor-pointer select-none">Welcome to Web3-Packages Demo</span>
+            </Tooltip>
             {hasSearch && <Search />}
             <a href="https://github.com/Web3Packages/UI" target="_blank">
                 <img src="https://github.githubassets.com/favicons/favicon.svg" alt="github" />
