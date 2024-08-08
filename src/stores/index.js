@@ -1,2 +1,3 @@
 export * from "./check"
-export * from "./contraction.js"
+export * from "./contraction"
+export * from "./edit"

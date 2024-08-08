@@ -14,11 +14,11 @@ export default defineConfig({
             include: [/\.jsx?$/],
             imports: ["react", "react-router-dom", "react-router"],
         }),
-        Inspect({build: true, outputDir: ".vite-inspect"}),
+        Inspect({ build: true, outputDir: ".vite-inspect" }),
     ],
     resolve: {
         alias: [
-            {find: "@", replacement: resolve(__dirname, "src")},
+            { find: "@", replacement: resolve(__dirname, "src") },
         ],
     },
     build: {

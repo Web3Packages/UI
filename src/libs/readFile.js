@@ -1,7 +1,3 @@
-import { useContractionStore } from "@/stores"
-
-const { contract } = useContractionStore()
-
 function utf8ArrayToStr(utf8Bytes) {
     let unicodeStr = ""
     for (let pos = 0; pos < utf8Bytes.length;) {
@@ -91,32 +87,25 @@ function byteStrToUint8Array(str) {
     return uint8Array
 }
 
-async function readFile(fileName) {
+export async function readFile(fileName, contract) {
+    console.log("uint8ArrayToByteStr")
+    if (!contract || !fileName) return
 
     const hexName = "0x" + Buffer.from(`/${fileName}.txt`, "utf8").toString("hex")  //
-
+    console.log(hexName)
     const returnByteStr = await contract.getFiles(hexName)
+    console.log(returnByteStr)
     const returnUint8Array = byteStrToUint8Array(returnByteStr)
     const returnStr = utf8ArrayToStr(returnUint8Array)
 
     const returnJson = JSON.parse(returnStr)
     const contentEncode = returnJson[fileName.split("@")[0]]
-    const contentDecode = decodeURIComponent(contentEncode)
-
-    console.log(contentDecode)
+    return decodeURIComponent(contentEncode)
 }
 
-
-async function getFileList(fileName) {
-
-    const returnList = await contract.getFullNamesOfAll(fileName.split("@")[0])
-
-    console.log(returnList)  // [ 'uint8ArrayToByteStr@1.0.1' ]
+export async function getFileList(fileName, contract) {
+    if (!contract || !fileName) return
+    const params = fileName.split("@")[0]
+    console.log("uint8ArrayToByteStr", params)
+    return await contract.getFullNamesOfAll(params)
 }
-
-
-const fileNameWithVersion = "uint8ArrayToByteStr@1.0.1"
-
-readFile(fileNameWithVersion)
-
-getFileList(fileNameWithVersion)

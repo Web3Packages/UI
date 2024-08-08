@@ -1,47 +1,52 @@
-import { useContractionStore } from "@/stores/index.js"
-import { useCheckStore } from "../stores/check"
 import { useNavigate } from "react-router-dom"
-import { Tooltip } from "@/components/Tooltip.jsx"
+import { Tooltip } from "@/components/Tooltip"
+import { useContractionStore } from "@/stores"
+import { getFileList, readFile } from "@/libs/readFile"
 
-function Search() {
+function Search({ setFileRaw }) {
+    const [files, setFiles] = useState([])
     const { contract } = useContractionStore()
-    const { setCurrentFileFullName } = useCheckStore()
-    const [keyword, setKeyword] = useState("uint8ArrayToByteStr")
-    const [list, setList] = useState([])
+    const inputRef = useRef(null)
 
-    const getFunctionListByKeyWord = async kewWord => {
-        if (contract && kewWord) {
-            try {
-                const funcList = await contract.getFullNamesOfAll(kewWord)
-                setList(funcList)
-            } catch (e) {
-                console.error(e)
-            }
+    async function getFile(fullName) {
+        if (!contract || !fullName) {
+            return null
         }
+        return await readFile(fullName, contract)
     }
-    const handleSearchChange = e => {
-        const keyword = e.target.value
-        setKeyword(keyword)
-        getFunctionListByKeyWord(keyword)
+
+    async function getFilenames(fullName) {
+        if (!contract || !fullName) {
+            return null
+        }
+        return await getFileList(fullName, contract)
     }
-    const handleListItemClick = funcName => {
-        setList([])
-        setCurrentFileFullName(funcName)
-        setKeyword(funcName)
+
+    function handleSearch() {
+        const value = inputRef.current.value
+        getFilenames(value)
     }
+
+    function handleListItemClick(funcName) {
+        setFiles([])
+        getFile(funcName, contract).then(res => {
+            console.log(res)
+            setFileRaw(res)
+        })
+    }
+
     return (
         <div className="flex space-x-2 w-1/2">
             <div className="relative flex-1 ">
                 <input
-                    onChange={handleSearchChange}
-                    value={keyword}
-                    type="text"
+                    onChange={handleSearch}
+                    type="text" ref={inputRef}
                     placeholder="filename@version"
                     className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500"
                 />
-                {list.length > 0 && (
+                {files.length > 0 && (
                     <div className="absolute top-full left-0 right-0 bg-slate-50 rounded z-10">
-                        {list.map(i => (
+                        {files.map(i => (
                             <div
                                 key={i}
                                 onClick={() => handleListItemClick(i)}
@@ -55,7 +60,7 @@ function Search() {
             </div>
             <button
                 className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 active:bg-blue-700 transition duration-150 ease-in-out"
-                onClick={() => getFunctionListByKeyWord(keyword)}
+                onClick={handleSearch}
             >
                 Search
             </button>
@@ -63,7 +68,7 @@ function Search() {
     )
 }
 
-export default function Header({ hasSearch }) {
+export default function Header({ hasSearch, setFileRaw }) {
     const navigate = useNavigate()
 
     const handleButtonClick = path => {
@@ -76,8 +81,8 @@ export default function Header({ hasSearch }) {
                 <span onClick={() => handleButtonClick("/")}
                       className="cursor-pointer select-none">Welcome to Web3-Packages Demo</span>
             </Tooltip>
-            {hasSearch && <Search />}
-            <a href="https://github.com/Web3Packages/UI" target="_blank">
+            {hasSearch && <Search setFileRaw={setFileRaw} />}
+            <a href="https://github.com/Web3Packages/UI" target="_blank" title="github repo">
                 <img src="https://github.githubassets.com/favicons/favicon.svg" alt="github" />
             </a>
         </header>
