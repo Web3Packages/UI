@@ -7,8 +7,12 @@ export default function useCoding(fileRaw) {
     function handleExecute() {
         const runCode = fileRaw + "\n" + code
         const fn = new Function(runCode)
-        const result = useConsole(fn)
-        setResults(result)
+        try {
+            const result = useConsole(fn)
+            setResults(result)
+        } catch (e) {
+            setResults([e])
+        }
     }
 
     return {

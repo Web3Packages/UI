@@ -32,7 +32,6 @@ export async function writeFile(fileName, fileRaw, contract) {
     if (fileSize > 24 * 1024 - 326) {
         cost = Math.floor((fileSize + 326) / 1024 / 24)
     }
-    debugger
     for (const index in chunks) {
         const chunk = chunks[index]
         const hexData = "0x" + Array.from(chunk).map(byte => byte.toString(16).padStart(2, "0")).join("")
