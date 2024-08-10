@@ -87,14 +87,12 @@ function byteStrToUint8Array(str) {
     return uint8Array
 }
 
+const encoder = new TextEncoder()
 export async function readFile(fileName, contract) {
-    console.log("uint8ArrayToByteStr")
     if (!contract || !fileName) return
-
-    const hexName = "0x" + Buffer.from(`/${fileName}.txt`, "utf8").toString("hex")  //
-    console.log(hexName)
+    const fileNameUint8Array = encoder.encode(`/${fileName}.txt`)
+    const hexName = "0x" + Array.from(fileNameUint8Array).map(byte => byte.toString(16).padStart(2, "0")).join("")
     const returnByteStr = await contract.getFiles(hexName)
-    console.log(returnByteStr)
     const returnUint8Array = byteStrToUint8Array(returnByteStr)
     const returnStr = utf8ArrayToStr(returnUint8Array)
 
@@ -106,6 +104,5 @@ export async function readFile(fileName, contract) {
 export async function getFileList(fileName, contract) {
     if (!contract || !fileName) return
     const params = fileName.split("@")[0]
-    console.log("uint8ArrayToByteStr", params)
     return await contract.getFullNamesOfAll(params)
 }

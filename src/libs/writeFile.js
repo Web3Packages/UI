@@ -8,8 +8,8 @@ function bufferChunk(buffer, chunkSize) {
     return result
 }
 
+const encoder = new TextEncoder()
 export async function writeFile(fileName, fileRaw, contract) {
-    const encoder = new TextEncoder()
     const fileNameUint8Array = encoder.encode(`${fileName}.txt`)
     const hexName = "0x" + Array.from(fileNameUint8Array).map(byte => byte.toString(16).padStart(2, "0")).join("")
 

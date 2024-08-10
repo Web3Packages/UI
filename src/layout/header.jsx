@@ -24,15 +24,12 @@ function Search({ setFileRaw }) {
 
     function handleSearch() {
         const value = inputRef.current.value
-        getFilenames(value)
+        getFilenames(value).then(res => setFiles(res))
     }
 
     function handleListItemClick(funcName) {
         setFiles([])
-        getFile(funcName, contract).then(res => {
-            console.log(res)
-            setFileRaw(res)
-        })
+        getFile(funcName, contract).then(res => setFileRaw(res))
     }
 
     return (
