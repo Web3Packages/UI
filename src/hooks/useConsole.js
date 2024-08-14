@@ -1,4 +1,4 @@
-import { isArray } from "@/utils/is.js"
+import { isArray, isObject } from "@/utils/is"
 
 const originalLog = console.log
 
@@ -9,11 +9,12 @@ export default function useConsole(fn) {
         const args = Array.from(arguments)
         let str = ""
         for (const arg of args) {
-            if (typeof arg === "object" || isArray(arg)) {
+            if (isArray(arg) || isObject(arg)) {
                 str += JSON.stringify(arg)
             } else {
                 str += arg
             }
+            str += " "
         }
         logStore.push(str)
 

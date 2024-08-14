@@ -24,7 +24,7 @@ function Search({ setFileRaw }) {
 
     function handleSearch() {
         const value = inputRef.current.value
-        getFilenames(value).then(res => setFiles(res))
+        getFilenames(value).then(res => res && setFiles(res))
     }
 
     function handleListItemClick(funcName) {

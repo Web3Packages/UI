@@ -1,7 +1,5 @@
 export function Tooltip({ children, text, position = "bottom" }) {
-    const positionClasses = position === "bottom"
-        ? "bottom-full mb-1"
-        : "top-full mt-1"
+    const positionClasses = position === "bottom" ? "bottom-full mb-1" : "top-full mt-1"
 
     return (
         <div className="relative group z-50">

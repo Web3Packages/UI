@@ -1,7 +1,10 @@
 {
-  "name": "web3-pacakges",
+  "name": "web3-packages",
   "private": true,
   "version": "0.1.0",
+  "description": "Web3-Paca",
+  "packageManager": "pnpm@9.7.0",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite --host --open",
@@ -36,5 +39,16 @@
     "unplugin-auto-import": "^0.18.0",
     "vite": "^5.3.4",
     "vite-plugin-inspect": "^0.8.5"
+  },
+  "keywords": [
+    "web3"
+  ],
+  "homepage": "https://web3packages.pages.dev",
+  "bugs": {
+    "url": "https://github.com/Web3Packages/UI/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Web3Packages/UI.git"
   }
 }

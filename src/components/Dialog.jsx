@@ -22,10 +22,9 @@ const closeVariants = "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-
 const DialogContent = forwardRef(({ className, children, ...props }, ref) => (
     <DialogPortal>
         <DialogOverlay />
-        <Content ref={ref} className={cn(contentVariants, className)}   {...props}>
+        <Content ref={ref} className={cn(contentVariants, className)} {...props}>
             {children}
-            <Close
-                className={`${closeVariants} hover:rotate-90 transition-transform duration-300 ease-in-out`}>
+            <Close className={`${closeVariants} hover:rotate-90 transition-transform duration-300 ease-in-out`}>
                 <X className="h-4 w-4" />
                 <span className="sr-only">Close</span>
             </Close>

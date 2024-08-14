@@ -1,4 +1,4 @@
-import useConsole from "@/hooks/useConsole.js"
+import useConsole from "@/hooks/useConsole"
 
 export default function useCoding(fileRaw) {
     const [results, setResults] = useState(["The results will be displayed here."])
