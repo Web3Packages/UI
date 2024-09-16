@@ -30,6 +30,7 @@ function Search({ setFileRaw }) {
     function handleListItemClick(funcName) {
         setFiles([])
         getFile(funcName, contract).then(res => setFileRaw(res))
+        inputRef.current.value = funcName
     }
 
     return (

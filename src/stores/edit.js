@@ -15,6 +15,10 @@ const bar = (p1, p2, ...) => {
 function foo(params) {
   console.log("test:", params.toString())
 }
+
+function foo2() {
+  console.log("foo2");
+}
 `
 
 export const useEditStore = create(set => ({

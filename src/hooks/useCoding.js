@@ -2,11 +2,11 @@ import useConsole from "@/hooks/useConsole"
 
 export default function useCoding(fileRaw) {
     const [results, setResults] = useState(["The results will be displayed here."])
-    const [code, setCode] = useState(`const runTest = foo()\nconsole.log(runTest)`)
+    const [code, setCode] = useState(`const code =\`leftcode return [foo]\`;\nconst fn = new Function(code);\nconst [foo] = fn();\nfoo("hello");`)
 
     function handleExecute() {
-        const runCode = fileRaw + "\n" + code
-        const fn = new Function(runCode)
+        const formatCode = code.replace(/leftcode/g, String(fileRaw.replace(/\n/g, '')))
+        const fn = new Function(formatCode)
         try {
             const result = useConsole(fn)
             setResults(result)
