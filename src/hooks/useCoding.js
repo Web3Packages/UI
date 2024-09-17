@@ -5,7 +5,9 @@ export default function useCoding(fileRaw) {
     const [code, setCode] = useState(`const code =\`leftcode return [foo]\`;\nconst fn = new Function(code);\nconst [foo] = fn();\nfoo("hello");`)
 
     function handleExecute() {
-        const formatCode = code.replace(/leftcode/g, String(fileRaw.replace(/\n/g, '')))
+        // const formatCode = code.replace(/leftcode/g, String(fileRaw.replace(/\n/g, '')))
+        const formatCode = code.replace(/leftcode/g, String(fileRaw))
+        console.log(formatCode, '000')
         const fn = new Function(formatCode)
         try {
             const result = useConsole(fn)
