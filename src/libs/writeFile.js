@@ -9,14 +9,14 @@ function bufferChunk(buffer, chunkSize) {
 }
 
 const encoder = new TextEncoder()
+
 export async function writeFile(fileName, fileRaw, contract) {
     const fileNameUint8Array = encoder.encode(`${fileName}.txt`)
     const hexName = "0x" + Array.from(fileNameUint8Array).map(byte => byte.toString(16).padStart(2, "0")).join("")
 
-    const contentBuffer = new Uint8Array([fileRaw])
-
-    const contentBufferToUtf8Str = encodeURIComponent(new TextDecoder().decode(contentBuffer))
+    const contentBufferToUtf8Str = encodeURIComponent(fileRaw)  // @@@@@@@@@@@@@@
     const contentUtf8StrToBuffer = encoder.encode(contentBufferToUtf8Str)
+
     let fileSize = contentUtf8StrToBuffer.length
 
     let chunks = []
@@ -36,7 +36,7 @@ export async function writeFile(fileName, fileRaw, contract) {
         const chunk = chunks[index]
         const hexData = "0x" + Array.from(chunk).map(byte => byte.toString(16).padStart(2, "0")).join("")
 
-        const ifFinal = (index === chunks.length - 1)
+        const ifFinal = (index === chunks.length - 1) // @@@@@@@@@@@@@@@@@
 
         const estimatedGas = await contract.writeChunk.estimateGas(hexName, index, hexData, ifFinal, { value: ethers.parseEther(cost.toString()) })
 
@@ -47,6 +47,6 @@ export async function writeFile(fileName, fileRaw, contract) {
 
         const tx = await contract.writeChunk(hexName, index, hexData, ifFinal, option)
         await tx.wait(1)
-        console.log(`File ${fileName}.txt chunkId: ${index} uploaded!`)
     }
+    console.log(`File ${fileName}.txt chunkId: ${index} uploaded!`)
 }
