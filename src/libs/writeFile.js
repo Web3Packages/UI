@@ -36,7 +36,7 @@ export async function writeFile(fileName, fileRaw, contract) {
         const chunk = chunks[index]
         const hexData = "0x" + Array.from(chunk).map(byte => byte.toString(16).padStart(2, "0")).join("")
 
-        const ifFinal = (index === chunks.length - 1) // @@@@@@@@@@@@@@@@@
+        const ifFinal = (+index === chunks.length - 1) // @@@@@@@@@@@@@@@@@
 
         const estimatedGas = await contract.writeChunk.estimateGas(hexName, index, hexData, ifFinal, { value: ethers.parseEther(cost.toString()) })
 
