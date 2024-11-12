@@ -1,7 +1,8 @@
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, useRoutes } from "react-router-dom"
 import { Tooltip } from "@/components/Tooltip"
 import { useContractionStore } from "@/stores"
 import { getFileList, readFile } from "@/libs/readFile"
+import { Button } from "@/components/Button.jsx"
 
 function Search({ setFileRaw }) {
     const [files, setFiles] = useState([])
@@ -72,6 +73,13 @@ export default function Header({ hasSearch, setFileRaw }) {
     const handleButtonClick = path => {
         navigate(path)
     }
+    // const routes = useRoutes()
+    // console.log(routes)
+    const { pathname } = useLocation()
+    const isEdit = pathname === "/edit"
+    const isCheck = pathname === "/check"
+
+    const route = useMemo(() => isEdit && "/check" || isCheck && "/edit", [pathname])
     return (
         <header
             className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white text-2xl font-bold py-4 flex items-center justify-between px-4 h-20">
@@ -80,6 +88,7 @@ export default function Header({ hasSearch, setFileRaw }) {
                       className="cursor-pointer select-none">Welcome to Web3-Packages Demo</span>
             </Tooltip>
             {hasSearch && <Search setFileRaw={setFileRaw} />}
+            <Button onClick={() => handleButtonClick(route)}> Go to {route.replace("/", "")}   </Button>
             <a href="https://github.com/Web3Packages/UI" target="_blank" title="github repo">
                 <img src="https://github.githubassets.com/favicons/favicon.svg" alt="github" />
             </a>
