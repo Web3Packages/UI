@@ -69,7 +69,7 @@ export function TransactionsProvider({ children }) {
 
     useEffect(() => {
         checkIfWalletIsConnect()
-    }, [transactionCount])
+    }, [transactionCount, currentAccount])
 
     return (
         <TransactionContext.Provider
